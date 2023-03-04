@@ -1,1 +1,1 @@
-# Kenzie-Burguer---Typescript
+# Kenzie-Burguer
