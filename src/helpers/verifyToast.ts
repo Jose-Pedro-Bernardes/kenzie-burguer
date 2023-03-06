@@ -6,9 +6,9 @@ export const showToast = (message: string, type: ToastType) => {
   switch (type) {
     case 'success':
       toast.success(message, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1500,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -18,9 +18,9 @@ export const showToast = (message: string, type: ToastType) => {
       break;
     case 'error':
       toast.error(message, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 1500,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

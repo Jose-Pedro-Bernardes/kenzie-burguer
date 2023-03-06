@@ -8,6 +8,7 @@ import { iUserEntrieLogin } from '../../../contexts/types/types';
 import { StyledTextField } from '../../../styles/form';
 import { StyledParagraph } from '../../../styles/typography';
 import { formSchema } from './formSchema';
+import { showToast } from '../../../helpers/verifyToast';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ const LoginForm = () => {
       const response = await api.post('login', data);
       localStorage.setItem('@KenzieBurguer:token', response.data.accessToken);
       localStorage.setItem('@KenzieBurguer:userId', response.data.user.id);
+      showToast(`Bem vindo, ${response.data.user.name}!`, 'success');
       setTimeout(() => {
+        showToast('Erro. Tente novamente.', 'error');
         navigate(`/shop`);
       }, 2000);
     } catch (error) {}
@@ -39,7 +42,11 @@ const LoginForm = () => {
         }`}</StyledParagraph>
       </fieldset>
       <fieldset>
-        <StyledTextField label='Senha' type='text' {...register('password')} />
+        <StyledTextField
+          label='Senha'
+          type='password'
+          {...register('password')}
+        />
         <StyledParagraph fontColor='red'>{`${
           errors.password?.message ?? ''
         }`}</StyledParagraph>

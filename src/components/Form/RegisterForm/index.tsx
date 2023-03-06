@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import api from '../../../contexts/axios/axiosInstance';
 import { showToast } from '../../../helpers/verifyToast';
+import { ToastContainer } from 'react-toastify';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -35,43 +36,45 @@ const RegisterForm = () => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(submitRegister)}>
-      <fieldset>
-        <StyledTextField label='Nome' type='text' {...register('name')} />
-        <StyledParagraph fontColor='red'>{`${
-          errors.name?.message ?? ''
-        }`}</StyledParagraph>
-      </fieldset>
-      <fieldset>
-        <StyledTextField label='Email' type='text' {...register('email')} />
-        <StyledParagraph fontColor='red'>{`${
-          errors.email?.message ?? ''
-        }`}</StyledParagraph>
-      </fieldset>
-      <fieldset>
-        <StyledTextField
-          label='Senha'
-          type='password'
-          {...register('password')}
-        />
-        <StyledParagraph fontColor='red'>{`${
-          errors.password?.message ?? ''
-        }`}</StyledParagraph>
-      </fieldset>
-      <fieldset>
-        <StyledTextField
-          label='Confirmar senha'
-          type='password'
-          {...register('confirmPass')}
-        />
-        <StyledParagraph fontColor='red'>{`${
-          errors.confirmPass?.message ?? ''
-        }`}</StyledParagraph>
-      </fieldset>
-      <StyledButton type='submit' $buttonSize='default' $buttonStyle='gray'>
-        Cadastrar
-      </StyledButton>
-    </StyledForm>
+    <>
+      <StyledForm onSubmit={handleSubmit(submitRegister)}>
+        <fieldset>
+          <StyledTextField label='Nome' type='text' {...register('name')} />
+          <StyledParagraph fontColor='red'>{`${
+            errors.name?.message ?? ''
+          }`}</StyledParagraph>
+        </fieldset>
+        <fieldset>
+          <StyledTextField label='Email' type='text' {...register('email')} />
+          <StyledParagraph fontColor='red'>{`${
+            errors.email?.message ?? ''
+          }`}</StyledParagraph>
+        </fieldset>
+        <fieldset>
+          <StyledTextField
+            label='Senha'
+            type='password'
+            {...register('password')}
+          />
+          <StyledParagraph fontColor='red'>{`${
+            errors.password?.message ?? ''
+          }`}</StyledParagraph>
+        </fieldset>
+        <fieldset>
+          <StyledTextField
+            label='Confirmar senha'
+            type='password'
+            {...register('confirmPass')}
+          />
+          <StyledParagraph fontColor='red'>{`${
+            errors.confirmPass?.message ?? ''
+          }`}</StyledParagraph>
+        </fieldset>
+        <StyledButton type='submit' $buttonSize='default' $buttonStyle='gray'>
+          Cadastrar
+        </StyledButton>
+      </StyledForm>
+    </>
   );
 };
 
