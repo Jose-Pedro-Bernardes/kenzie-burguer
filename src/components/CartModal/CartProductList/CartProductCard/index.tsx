@@ -3,14 +3,20 @@ import { MdDelete } from 'react-icons/md';
 import { StyledCartProductCard } from './style';
 import { StyledTitle } from '../../../../styles/typography';
 
-const CartProductCard = () => (
-  <StyledCartProductCard>
+interface ICartProductCardProps {
+  img: string;
+  name: string;
+  key: string;
+}
+
+const CartProductCard = ({ img, name, key }: ICartProductCardProps) => (
+  <StyledCartProductCard key={key}>
     <div className='imageBox'>
-      <img src='https://i.imgur.com/Vng6VzV.png' alt='Hamburguer' />
+      <img src={img} alt={name} />
     </div>
     <div className='contentBox'>
       <StyledTitle tag='h3' $fontSize='three'>
-        Hamburguer
+        {name}
       </StyledTitle>
       <button type='button' aria-label='Remover'>
         <MdDelete size={24} />
