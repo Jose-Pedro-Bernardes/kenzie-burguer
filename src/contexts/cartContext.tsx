@@ -4,19 +4,20 @@ export interface IProduct {
   id: number;
   name: string;
   category?: string;
-  price?: number;
+  price: number;
   img: string;
 }
 
 interface ICartContext {
   cart: IProduct[];
   setCart: React.Dispatch<React.SetStateAction<IProduct[]>>;
-  removeProduct: (id: string) => void;
+  removeProduct: (id: number) => void;
   removeAllCart: () => void;
   addToCart: (product: IProduct) => void;
   showModal: boolean;
   openModal: () => void;
   closeModal: () => void;
+  totalValue: () => number;
 }
 
 interface ICartProviderProps {
@@ -34,6 +35,13 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
       setCart([...cart, product]);
     }
   }
+  const totalValue = (): number => {
+    const sum = cart.reduce((prevValue: number, currentValue: IProduct) => {
+      return prevValue + Number(currentValue.price);
+    }, 0);
+
+    return Number(sum);
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -43,8 +51,8 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
     setShowModal(false);
   };
 
-  const removeProduct = (id: string) => {
-    setCart(cart.filter((product) => product.id.toString() !== id));
+  const removeProduct = (id: number) => {
+    setCart(cart.filter((product) => product.id !== id));
   };
 
   const removeAllCart = () => {
@@ -62,6 +70,7 @@ export const CartProvider = ({ children }: ICartProviderProps) => {
         showModal,
         openModal,
         closeModal,
+        totalValue,
       }}
     >
       {children}
