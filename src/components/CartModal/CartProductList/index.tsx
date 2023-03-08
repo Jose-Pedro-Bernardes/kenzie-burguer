@@ -3,10 +3,11 @@ import CartProductCard from './CartProductCard';
 import { StyledCartProductList } from './style';
 import { StyledButton } from '../../../styles/button';
 import { StyledParagraph } from '../../../styles/typography';
-import { useCartContext } from '../../../hooks/useCartContext';
+import { useContext } from 'react';
+import { CartContext } from '../../../contexts/CartContext';
 
 const CartProductList = () => {
-  const { cart } = useCartContext();
+  const { cart } = useContext(CartContext);
   return (
     <StyledCartProductList>
       <ul>
