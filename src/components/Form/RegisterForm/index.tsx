@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { StyledTextField } from '../../../styles/form';
 import { StyledParagraph } from '../../../styles/typography';
 import { StyledButton } from '../../../styles/button';
@@ -6,14 +7,11 @@ import { StyledForm } from '../../../styles/form';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { iEntrieRegister } from '../../../contexts/types/types';
 import { formSchema } from './formSchema';
-import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import api from '../../../contexts/axios/axiosInstance';
-import { showToast } from '../../../helpers/verifyToast';
-import { ToastContainer } from 'react-toastify';
+import { UserContext } from '../../../contexts/UserContext';
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
+  const { submitRegister } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -22,22 +20,15 @@ const RegisterForm = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const submitRegister: SubmitHandler<iEntrieRegister> = async (data) => {
-    try {
-      const response = await api.post('users', data);
-      showToast('Cadastro bem sucedido!', 'success');
-
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
-    } catch (error) {
-      showToast('Erro ao cadastrar.', 'error');
-    }
+  const submit: SubmitHandler<iEntrieRegister> = async (
+    data: iEntrieRegister
+  ) => {
+    await submitRegister(data);
   };
 
   return (
     <>
-      <StyledForm onSubmit={handleSubmit(submitRegister)}>
+      <StyledForm onSubmit={handleSubmit(submit)}>
         <fieldset>
           <StyledTextField label='Nome' type='text' {...register('name')} />
           <StyledParagraph fontColor='red'>{`${
