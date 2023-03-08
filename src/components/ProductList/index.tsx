@@ -7,7 +7,6 @@ import { StyledProductList } from './style';
 const ProductList = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [allProducts, setAllProducts] = useState<any[]>([]);
-  const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
     const token = localStorage.getItem('@KenzieBurguer:token');
@@ -32,6 +31,7 @@ const ProductList = () => {
       {products.length > 0 &&
         products.map((product) => (
           <ProductCard
+            product={product}
             key={product.id.toString()}
             name={product.name}
             price={parseFloat(product.price.toString())
