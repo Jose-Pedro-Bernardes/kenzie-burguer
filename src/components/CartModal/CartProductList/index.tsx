@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { CartContext } from '../../../contexts/CartContext';
 
 const CartProductList = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, removeAllCart } = useContext(CartContext);
   return (
     <StyledCartProductList>
       <ul>
@@ -28,7 +28,11 @@ const CartProductList = () => {
         </StyledParagraph>
         <StyledParagraph className='total'>R$ 14,00</StyledParagraph>
       </div>
-      <StyledButton $buttonSize='default' $buttonStyle='gray'>
+      <StyledButton
+        onClick={removeAllCart}
+        $buttonSize='default'
+        $buttonStyle='gray'
+      >
         Remover todos
       </StyledButton>
     </StyledCartProductList>
