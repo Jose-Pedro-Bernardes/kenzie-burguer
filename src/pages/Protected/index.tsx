@@ -9,6 +9,8 @@ export const Protected = () => {
   useEffect(() => {
     if (!user) {
       navigate('/');
+      localStorage.removeItem('@KenzieBurguer:userId');
+      localStorage.removeItem('@KenzieBurguer:token');
     }
   });
   return <div>{user ? <Outlet /> : null}</div>;
