@@ -2,16 +2,15 @@ import { StyledButton } from '../../../styles/button';
 import { StyledForm } from '../../../styles/form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import api from '../../../contexts/axios/axiosInstance';
-import { useNavigate } from 'react-router-dom';
 import { iUserEntrieLogin } from '../../../contexts/types/types';
 import { StyledTextField } from '../../../styles/form';
 import { StyledParagraph } from '../../../styles/typography';
 import { formSchema } from './formSchema';
-import { showToast } from '../../../helpers/verifyToast';
+import { useContext } from 'react';
+import { UserContext } from '../../../contexts/UserContext';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
+  const { submitLogin } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -19,22 +18,11 @@ const LoginForm = () => {
   } = useForm<iUserEntrieLogin>({
     resolver: yupResolver(formSchema),
   });
-
-  const submitLogin: SubmitHandler<iUserEntrieLogin> = async (data) => {
-    try {
-      const response = await api.post('login', data);
-      localStorage.setItem('@KenzieBurguer:token', response.data.accessToken);
-      localStorage.setItem('@KenzieBurguer:userId', response.data.user.id);
-      showToast(`Bem vindo, ${response.data.user.name}!`, 'success');
-      setTimeout(() => {
-        showToast('Erro. Tente novamente.', 'error');
-        navigate(`/shop`);
-      }, 2000);
-    } catch (error) {}
+  const submit: SubmitHandler<iUserEntrieLogin> = (data: iUserEntrieLogin) => {
+    submitLogin(data);
   };
-
   return (
-    <StyledForm onSubmit={handleSubmit(submitLogin)}>
+    <StyledForm onSubmit={handleSubmit(submit)}>
       <fieldset>
         <StyledTextField label='Email' type='text' {...register('email')} />
         <StyledParagraph fontColor='red'>{`${
