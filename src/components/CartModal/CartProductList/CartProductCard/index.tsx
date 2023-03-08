@@ -8,13 +8,14 @@ import { CartContext } from '../../../../contexts/CartContext';
 interface ICartProductCardProps {
   img: string;
   name: string;
-  key: string;
+
+  id: number;
 }
 
-const CartProductCard = ({ img, name, key }: ICartProductCardProps) => {
+const CartProductCard = ({ img, name, id }: ICartProductCardProps) => {
   const { removeProduct } = useContext(CartContext);
   return (
-    <StyledCartProductCard key={key}>
+    <StyledCartProductCard>
       <div className='imageBox'>
         <img src={img} alt={name} />
       </div>
@@ -23,7 +24,7 @@ const CartProductCard = ({ img, name, key }: ICartProductCardProps) => {
           {name}
         </StyledTitle>
         <button
-          onClick={() => removeProduct(key)}
+          onClick={() => removeProduct(id)}
           type='button'
           aria-label='Remover'
         >
