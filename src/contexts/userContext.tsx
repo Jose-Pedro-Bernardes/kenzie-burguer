@@ -8,6 +8,7 @@ interface IUserContext {
   user: IUser | null;
   submitLogin: (data: iUserEntrieLogin) => Promise<void>;
   submitRegister: (data: iEntrieRegister) => Promise<void>;
+  userLogout: () => void;
 }
 
 interface IUser {
@@ -54,8 +55,20 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       showToast('Erro ao cadastrar.', 'error');
     }
   };
+
+  const userLogout = () => {
+    showToast('Você deslogou da sua conta.', 'info');
+    setTimeout(() => {
+      setUser(null);
+      localStorage.removeItem('@KenzieBurguer:userId');
+      localStorage.removeItem('@KenzieBurguer:token');
+      navigate('/');
+    }, 2000);
+  };
   return (
-    <UserContext.Provider value={{ user, submitLogin, submitRegister }}>
+    <UserContext.Provider
+      value={{ user, submitLogin, submitRegister, userLogout }}
+    >
       {children}
     </UserContext.Provider>
   );
