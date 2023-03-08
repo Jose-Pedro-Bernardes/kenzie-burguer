@@ -11,25 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 const ShopPage = () => {
   const navigate = useNavigate();
-  const { setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
 
-  useEffect(() => {
-    const token = localStorage.getItem('@KenzieBurguer:token');
-    if (token) {
-      const catchProducts = async () => {
-        try {
-          const res = await api.get('products', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setCart(res.data);
-        } catch (error) {
-          navigate('/');
-        }
-      };
-    }
-  });
   return (
     <StyledShopPage>
       <CartModal />
