@@ -3,14 +3,12 @@ import CartProductList from './CartProductList';
 
 import { StyledCartModalBox } from './style';
 import { StyledParagraph, StyledTitle } from '../../styles/typography';
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { CartContext } from '../../contexts/CartContext';
 
 const CartModal = () => {
-  const [showModal, setShowModal] = useState(true);
+  const { showModal, closeModal } = useContext(CartContext);
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
   return (
     <>
       {showModal && (
